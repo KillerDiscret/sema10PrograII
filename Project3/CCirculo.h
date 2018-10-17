@@ -41,11 +41,11 @@ void Circulo::dibujar(Drawing::Graphics ^gr)
 void Circulo::mover(Drawing::Graphics ^gr)
 {
 	borrar(gr);
-	if (x+dx<1||x+dx+radio<gr->VisibleClipBounds.Width)
+	if (x+dx<1||x+dx+radio>=gr->VisibleClipBounds.Width)
 	{
 		dx *= -1;
 	}	
-	if (y + dy<1 || y + dy + radio<gr->VisibleClipBounds.Height)
+	if (y + dy<1 || y + dy + radio>=gr->VisibleClipBounds.Height)
 	{
 		dy *= -1;
 	}

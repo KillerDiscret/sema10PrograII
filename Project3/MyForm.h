@@ -1,4 +1,5 @@
 #pragma once
+#include "CCirculo.h"
 
 namespace Project3 {
 
@@ -15,6 +16,7 @@ namespace Project3 {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	private:
+		Circulo *obj1;
 		int entrada1;
 		int entrada2;
 		int x;
@@ -22,11 +24,14 @@ namespace Project3 {
 	private: System::Windows::Forms::Label^  EjY;
 	private: System::Windows::Forms::TextBox^  textBoxX;
 	private: System::Windows::Forms::TextBox^  textBoxY;
+	private: System::Windows::Forms::Timer^  timer1;
 			 int y;
+	
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
+			obj1 = new Circulo(5,5,100);
 			//
 			//TODO: Add the constructor code here
 			//
@@ -49,6 +54,7 @@ namespace Project3 {
 	private: System::Windows::Forms::Label^  texto2;
 	private: System::Windows::Forms::TextBox^  textBoxWidth;
 	private: System::Windows::Forms::TextBox^  textBoxheight;
+	private: System::ComponentModel::IContainer^  components;
 	protected:
 
 	protected:
@@ -57,7 +63,7 @@ namespace Project3 {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -66,6 +72,7 @@ namespace Project3 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->boton1 = (gcnew System::Windows::Forms::Button());
 			this->boton2 = (gcnew System::Windows::Forms::Button());
 			this->texto1 = (gcnew System::Windows::Forms::Label());
@@ -76,6 +83,7 @@ namespace Project3 {
 			this->EjY = (gcnew System::Windows::Forms::Label());
 			this->textBoxX = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxY = (gcnew System::Windows::Forms::TextBox());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
 			// boton1
@@ -164,6 +172,11 @@ namespace Project3 {
 			this->textBoxY->Size = System::Drawing::Size(100, 20);
 			this->textBoxY->TabIndex = 9;
 			// 
+			// timer1
+			// 
+			this->timer1->Enabled = true;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -181,6 +194,7 @@ namespace Project3 {
 			this->Controls->Add(this->boton1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::MyForm_Paint);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -188,15 +202,15 @@ namespace Project3 {
 #pragma endregion
 	private: System::Void boton1_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
-		System::Drawing::Graphics ^canvas = this->CreateGraphics();
+		//System::Drawing::Graphics ^canvas = this->CreateGraphics();
 		//canvas->DrawEllipse(Pens::Red, 30, 20, 100, 100);
 		//canvas->FillEllipse(Brushes::Aquamarine, 30, 20, 100, 100);
-		entrada1 = Convert::ToInt32(textBoxheight->Text);
+		/*entrada1 = Convert::ToInt32(textBoxheight->Text);
 		entrada2 = Convert::ToInt32(textBoxWidth->Text);
 		x = Convert::ToInt32(textBoxX->Text);
 		y = Convert::ToInt32(textBoxY->Text);
 		canvas->DrawEllipse(Pens::Red, x, y, entrada1, entrada2);
-		
+		*/
 		/*n1 = Convert::ToInt32(textBox1->Text);
 		n2 = Convert::ToInt32(textBox2->Text);
 		resultado = n1 + n2;
@@ -205,18 +219,34 @@ namespace Project3 {
 	}
 	private: System::Void boton2_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
-		System::Drawing::Graphics ^canvas = this->CreateGraphics();
-		entrada1 = Convert::ToInt32(textBoxheight->Text);
+		
+		//System::Drawing::Graphics ^canvas = this->CreateGraphics();
+		/*entrada1 = Convert::ToInt32(textBoxheight->Text);
 		entrada2 = Convert::ToInt32(textBoxWidth->Text);
 		x = Convert::ToInt32(textBoxX->Text);
 		y = Convert::ToInt32(textBoxY->Text);
+		*/
 		//canvas->FillRectangle(Brushes::Red, 200, 210, 100, 100);
-		canvas->FillRectangle(Brushes::Red, x, y, entrada1, entrada2);
+		//canvas->FillRectangle(Brushes::Red, x, y, entrada1, entrada2);
 		//canvas->DrawRectangle(Pens::Red, 200, 210, 100, 100);
 	}
 	private: System::Void textBoxWidth_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	}
 private: System::Void textBoxheight_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	obj1->mover(this->CreateGraphics());
+
+}
+private: System::Void MyForm_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) 
+{
+	System::Drawing::Graphics^gr = this->CreateGraphics();
+	SolidBrush^brocha = gcnew SolidBrush(Color::White);
+	int a = gr->VisibleClipBounds.Width;
+	int l = gr->VisibleClipBounds.Height;
+	gr->FillRectangle(brocha, 0, 0, a,l);
+
 }
 };
 }
