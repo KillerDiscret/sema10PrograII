@@ -243,9 +243,9 @@ private: System::Void MyForm_Paint(System::Object^  sender, System::Windows::For
 {
 	System::Drawing::Graphics^gr = this->CreateGraphics();
 	SolidBrush^brocha = gcnew SolidBrush(Color::White);
-	int a = gr->VisibleClipBounds.Width;
-	int l = gr->VisibleClipBounds.Height;
-	gr->FillRectangle(brocha, 0, 0, a,l);
+	float a = gr->VisibleClipBounds.Width;
+	float  l = gr->VisibleClipBounds.Height;
+	gr->FillRectangle(brocha, 0, 0, (int)a,(int)l);
 
 }
 };
