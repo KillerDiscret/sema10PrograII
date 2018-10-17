@@ -17,6 +17,12 @@ namespace Project3 {
 	private:
 		int entrada1;
 		int entrada2;
+		int x;
+	private: System::Windows::Forms::Label^  EjX;
+	private: System::Windows::Forms::Label^  EjY;
+	private: System::Windows::Forms::TextBox^  textBoxX;
+	private: System::Windows::Forms::TextBox^  textBoxY;
+			 int y;
 	public:
 		MyForm(void)
 		{
@@ -66,6 +72,10 @@ namespace Project3 {
 			this->texto2 = (gcnew System::Windows::Forms::Label());
 			this->textBoxWidth = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxheight = (gcnew System::Windows::Forms::TextBox());
+			this->EjX = (gcnew System::Windows::Forms::Label());
+			this->EjY = (gcnew System::Windows::Forms::Label());
+			this->textBoxX = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxY = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// boton1
@@ -116,17 +126,53 @@ namespace Project3 {
 			// 
 			// textBoxheight
 			// 
-			this->textBoxheight->Location = System::Drawing::Point(110, 57);
+			this->textBoxheight->Location = System::Drawing::Point(110, 60);
 			this->textBoxheight->Name = L"textBoxheight";
 			this->textBoxheight->Size = System::Drawing::Size(100, 20);
 			this->textBoxheight->TabIndex = 5;
 			this->textBoxheight->TextChanged += gcnew System::EventHandler(this, &MyForm::textBoxheight_TextChanged);
+			// 
+			// EjX
+			// 
+			this->EjX->AutoSize = true;
+			this->EjX->Location = System::Drawing::Point(51, 98);
+			this->EjX->Name = L"EjX";
+			this->EjX->Size = System::Drawing::Size(32, 13);
+			this->EjX->TabIndex = 6;
+			this->EjX->Text = L"Eje X";
+			// 
+			// EjY
+			// 
+			this->EjY->AutoSize = true;
+			this->EjY->Location = System::Drawing::Point(51, 125);
+			this->EjY->Name = L"EjY";
+			this->EjY->Size = System::Drawing::Size(32, 13);
+			this->EjY->TabIndex = 7;
+			this->EjY->Text = L"Eje Y";
+			// 
+			// textBoxX
+			// 
+			this->textBoxX->Location = System::Drawing::Point(110, 94);
+			this->textBoxX->Name = L"textBoxX";
+			this->textBoxX->Size = System::Drawing::Size(100, 20);
+			this->textBoxX->TabIndex = 8;
+			// 
+			// textBoxY
+			// 
+			this->textBoxY->Location = System::Drawing::Point(110, 122);
+			this->textBoxY->Name = L"textBoxY";
+			this->textBoxY->Size = System::Drawing::Size(100, 20);
+			this->textBoxY->TabIndex = 9;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(540, 402);
+			this->Controls->Add(this->textBoxY);
+			this->Controls->Add(this->textBoxX);
+			this->Controls->Add(this->EjY);
+			this->Controls->Add(this->EjX);
 			this->Controls->Add(this->textBoxheight);
 			this->Controls->Add(this->textBoxWidth);
 			this->Controls->Add(this->texto2);
@@ -147,7 +193,9 @@ namespace Project3 {
 		//canvas->FillEllipse(Brushes::Aquamarine, 30, 20, 100, 100);
 		entrada1 = Convert::ToInt32(textBoxheight->Text);
 		entrada2 = Convert::ToInt32(textBoxWidth->Text);
-		canvas->DrawEllipse(Pens::Red, 30, 20, entrada1, entrada2);
+		x = Convert::ToInt32(textBoxX->Text);
+		y = Convert::ToInt32(textBoxY->Text);
+		canvas->DrawEllipse(Pens::Red, x, y, entrada1, entrada2);
 		
 		/*n1 = Convert::ToInt32(textBox1->Text);
 		n2 = Convert::ToInt32(textBox2->Text);
@@ -160,8 +208,10 @@ namespace Project3 {
 		System::Drawing::Graphics ^canvas = this->CreateGraphics();
 		entrada1 = Convert::ToInt32(textBoxheight->Text);
 		entrada2 = Convert::ToInt32(textBoxWidth->Text);
+		x = Convert::ToInt32(textBoxX->Text);
+		y = Convert::ToInt32(textBoxY->Text);
 		//canvas->FillRectangle(Brushes::Red, 200, 210, 100, 100);
-		canvas->FillRectangle(Brushes::Red, 200, 210, entrada1, entrada2);
+		canvas->FillRectangle(Brushes::Red, x, y, entrada1, entrada2);
 		//canvas->DrawRectangle(Pens::Red, 200, 210, 100, 100);
 	}
 	private: System::Void textBoxWidth_TextChanged(System::Object^  sender, System::EventArgs^  e) {
